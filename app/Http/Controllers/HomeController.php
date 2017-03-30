@@ -25,8 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $personData = $user->personData()->get()->last();
+        $user = \Auth::user();
+        $personData = $user->measurements()->get()->last();
         return view('home', ['user' => $user, 'personData' => $personData]);
     }
 }

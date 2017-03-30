@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PersonData extends Model
+class Measurement extends Model
 {
-    protected $table = 'person_data';
+
+    protected $fillable = [
+        'height', 'weight', 'pal',
+    ];
 
     public function user()
     {

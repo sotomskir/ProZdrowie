@@ -6,28 +6,34 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Dashboard
-                        <a href="/measurements/create" class="btn btn-xs btn-primary pull-right">Dodaj pomiar</a>
+                        Measurements
+                        <a href="/measurements/create" class="btn btn-xs btn-primary pull-right">Add measurement</a>
                     </div>
 
                     <div class="panel-body">
-                        You are logged in!
-                        <dt>name</dt><dd>{{ $user->name }}</dd>
-                        <dt>email</dt><dd>{{ $user->email }}</dd>
                         <table class="table">
                             <thead>
-                                <th>sex</th>
-                                <th>pal</th>
-                                <th>weight</th>
-                                <th>height</th>
+                                <tr>
+                                    <th>pal</th>
+                                    <th>weight</th>
+                                    <th>height</th>
+                                    <th>actions</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @foreach($measurements as $measurement)
                                 <tr>
-                                    <td>{{ $measurement->sex }}</td>
                                     <td>{{ $measurement->pal }}</td>
                                     <td>{{ $measurement->weight }}</td>
                                     <td>{{ $measurement->height }}</td>
+                                    <td>
+                                        <form action="/measurements/{{ $measurement->id }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <a href="/measurements/{{ $measurement->id }}" class="btn btn-xs btn-primary">Edit</a>
+                                            <button class="btn btn-xs btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

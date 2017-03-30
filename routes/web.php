@@ -20,4 +20,12 @@ Route::get('/persons/{username}', 'PersonController@show');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('/measurements', 'MeasurementsController@index');
+
+Route::group(['prefix' => 'measurements'], function () {
+    Route::get('', 'MeasurementsController@index')->name('measurement.index');
+    Route::post('', 'MeasurementsController@save');
+    Route::get('create', 'MeasurementsController@create');
+    Route::get('{measurement}', 'MeasurementsController@edit');
+    Route::put('{measurement}', 'MeasurementsController@update');
+    Route::delete('{measurement}', 'MeasurementsController@delete');
+});
