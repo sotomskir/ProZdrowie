@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/ranking', 'RankingController@index');
+
 Route::group(['prefix' => 'measurements'], function () {
     Route::get('', 'MeasurementsController@index')->name('measurement.index');
     Route::post('', 'MeasurementsController@save');

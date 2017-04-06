@@ -45,6 +45,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/home">Home</a></li>
                         <li><a href="/measurements">Measurements</a></li>
+                        <li><a href="/ranking">Ranking</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

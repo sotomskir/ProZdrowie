@@ -1,4 +1,8 @@
-<?php namespace Dicts\Services;
+<?php namespace App\Services;
+
+use App\DictsRepository;
+use App\LaravelDictsRepository;
+use App\Models\DictValue;
 
 class DictsService {
 	protected static $instance = null;
@@ -10,15 +14,16 @@ class DictsService {
     protected $dictsRepository2;
 
     public function __construct() {
-        //$this->dictsRepository = new PdoDictsRepository();
-        $this->dictsRepository1 = new IniDictsRepository(__DIR__ . '/../../storage/dicts1.ini');
+        $this->dictsRepository1 = new LaravelDictsRepository(1);
+//        $this->dictsRepository1 = new IniDictsRepository(__DIR__ . '/../../storage/dicts1.ini');
         $this->dicts1 = $this->dictsRepository1->findAll();
 		foreach($this->dicts1 as $par =>$v){
 			//echo '<br>'.$par;
 			$this->dictsType[$par]=1;
 		}
 		
-        $this->dictsRepository2 = new IniDictsRepository(__DIR__ . '/../../storage/dicts2.ini');
+//        $this->dictsRepository2 = new IniDictsRepository(__DIR__ . '/../../storage/dicts2.ini');
+        $this->dictsRepository2 = new LaravelDictsRepository(2);
         $this->dicts2 = $this->dictsRepository2->findAll();
 		foreach($this->dicts2 as $par =>$values){
 			//echo '<br>'.$par;

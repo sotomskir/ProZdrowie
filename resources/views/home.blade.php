@@ -16,6 +16,13 @@
                         <dt>Last name</dt><dd>{{ $user->last_name }}</dd>
                         <dt>email</dt><dd>{{ $user->email }}</dd>
                         <dt>sex</dt><dd>{{ $user->sex }}</dd>
+                        <dt>weight</dt><dd>{{ $personData->weight }}</dd>
+                        <dt>height</dt><dd>{{ $personData->height }}</dd>
+                        <dt>bmi</dt><dd>{{ $personData->bmi() }} ({{ $dicts->translate('BMI', $personData->bmi()) }})</dd>
+                        <dt>cmp</dt><dd>{{ $personData->cmp() }}</dd>
+                        <dt>ppm</dt><dd>{{ $personData->ppm() }}</dd>
+                        <dt>pal</dt><dd>{{ $personData->pal }} ({{ $dicts->translate('PAL', $personData->pal) }})</dd>
+                        <dt>sex</dt><dd>{{ $dicts->translate('SEX', $user->sex) }}</dd>
                     </dl>
                 </div>
             </div>

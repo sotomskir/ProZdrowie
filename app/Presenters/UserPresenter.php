@@ -1,12 +1,12 @@
 <?php namespace App\Presenters;
 
-use App\Person;
+use App\Models\User;
 
-class PersonPresenter
+class UserPresenter
 {
     protected $person;
 
-    public function __construct(Person $person)
+    public function __construct(User $person)
     {
         $this->person = $person;
     }
