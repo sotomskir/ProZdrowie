@@ -13,6 +13,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>Stracone<br>kilogramy</th>
                                     <th>First name</th>
                                     <th>Last name</th>
                                     <th>sex</th>
@@ -23,7 +24,8 @@
                             </thead>
                             <tbody>
                             @foreach($users as $user)
-                                <tr>
+                                <tr class="{{ $user->id ==$logged->id ? 'active' : '' }}">
+                                    <td>{{ $user->weightDiff }}</td>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->sex }}</td>

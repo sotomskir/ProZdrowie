@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -43,9 +43,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="/home">Home</a></li>
+                        <li><a href="{{ route('home') }}">Home</a></li>
                         <li><a href="/measurements">Measurements</a></li>
-                        <li><a href="/ranking">Ranking</a></li>
+                        <li><a href="{{ route('ranking') }}">Ranking</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

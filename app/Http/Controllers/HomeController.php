@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Presenters\UserPresenter;
+use App\Services\DictionaryService;
 use App\Services\DictsService;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
      *
      * @param DictsService $dicts
      */
-    public function __construct(DictsService $dicts)
+    public function __construct(DictionaryService $dicts)
     {
         $this->middleware('auth');
         $this->dicts = $dicts;
@@ -26,16 +27,32 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = \Auth::user();
-        $personData = $user->measurements()->get()->last();
-        return view('home', [
-            'user' => $user,
-            'personData' => $personData,
-            'dicts' => $this->dicts
+        /**
+         * 1. Usuwam pobieranie usera z fasady Auth ($user = \Auth::user();),
+         * tylko dlatego, że moduł Auth, podpina obiek zalogowanego usera do requestu HTTP,
+         * wystarczy go pobrać z kontenera DependencyInjection - dodaje w parametrze metody
+         *
+         * 2. Usuwam odwołanie do pomiarów ($user->measurements()->get()->last();)
+         *
+         * 3. zmieniam nazwę i folder zwracanego widoku blade, chce, żeby one też miały
+         * sens i równocześnie odnosiły się do naszych ustaleń z mapy historyjek
+         *
+         * 4. zmieniam przekazywane do widoku paramety w klasę Presenter, która stanowi wrapper
+         * na obiekt User - to implementacja wzorca Decorator - nie mylić z Zendem :)
+         * http://culttt.com/2014/04/23/decorator-pattern/
+         * wyorzystuje do tego nie używane w repo klasy Presenters, wartości z klasy User mają
+         * sens rontowy tylko z słownikami, dlatego do presentera dokładam Service Dicts, jego
+         * refactor później...
+         *
+         * 5. Dokładam serwis Dicts jako zależnośc do presentera, żeby nie mieszać przeznaczenia klas
+         */
+        return view('profile.index', [
+            'user' => new UserPresenter($request->user(), $this->dicts)
         ]);
     }
 }

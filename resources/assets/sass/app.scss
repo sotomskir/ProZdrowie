@@ -7,3 +7,15 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/**
+Dodaje swoje style i kompiluje:
+https://laravel.com/docs/5.4/mix#running-mix
+Laravel wymaga node >= 7.0.0
+To upgrade node to the latest version or to a specific version you can do the following:
+sudo npm install n -g
+sudo n 0.10.18   // This will give you the specific version
+For the latest stable version:
+sudo n stable
+ */
+@import "profile/main";

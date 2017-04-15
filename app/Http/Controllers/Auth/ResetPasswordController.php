@@ -25,7 +25,12 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    /**
+     * Zmieniam ścieżkę na którą zostanie użytkownik
+     * odesłany po poprawnej akcji resetu hasła:
+     * https://laravel.com/docs/5.4/authentication
+     */
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
