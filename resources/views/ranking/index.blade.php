@@ -1,15 +1,18 @@
 @extends('layouts.app')
 
+@inject('dict', 'App\Services\DictsService')
+
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Ranking
+                        Other users
                     </div>
 
                     <div class="panel-body">
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -17,8 +20,9 @@
                                     <th>Last name</th>
                                     <th>sex</th>
                                     <th>pal</th>
-                                    <th>weight</th>
-                                    <th>height</th>
+                                    <th>weight [kg]</th>
+                                    <th>height [cm]</th>
+                                    <th>bmi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -26,10 +30,11 @@
                                 <tr>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
-                                    <td>{{ $user->sex }}</td>
-                                    <td>{{ $user->pal }}</td>
-                                    <td>{{ $user->weight }}</td>
-                                    <td>{{ $user->height }}</td>
+                                    <td>{{ $dict->translate('SEX', $user->sex) }}</td>
+                                    <td>{{ $dict->translate('PAL', $user->pal) }}</td>
+                                    <td style="text-align: right;">{{ number_format($user->weight, 2) }} kg</td>
+                                    <td style="text-align: right;">{{ number_format($user->height, 2) }} cm</td>
+                                    <td>{{ number_format($user->bmi, 1) }} ({{ $dict->translate('BMI', $user->bmi) }})</td>
                                 </tr>
                             @endforeach
                             </tbody>

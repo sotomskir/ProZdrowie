@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('dicts', 'App\Services\DictsService')
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -15,15 +17,15 @@
                             <thead>
                                 <tr>
                                     <th>pal</th>
-                                    <th>weight</th>
-                                    <th>height</th>
+                                    <th>weight [kg]</th>
+                                    <th>height [cm]</th>
                                     <th>actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($measurements as $measurement)
                                 <tr>
-                                    <td>{{ $measurement->pal }}</td>
+                                    <td>{{ $dict->translate('PAL', $measurement->pal) }}</td>
                                     <td>{{ $measurement->weight }}</td>
                                     <td>{{ $measurement->height }}</td>
                                     <td>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('dict', 'App\Services\DictsService')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -15,14 +17,17 @@
                         <dt>First name</dt><dd>{{ $user->first_name }}</dd>
                         <dt>Last name</dt><dd>{{ $user->last_name }}</dd>
                         <dt>email</dt><dd>{{ $user->email }}</dd>
-                        <dt>sex</dt><dd>{{ $user->sex }}</dd>
-                        <dt>weight</dt><dd>{{ $personData->weight }}</dd>
-                        <dt>height</dt><dd>{{ $personData->height }}</dd>
-                        <dt>bmi</dt><dd>{{ $personData->bmi() }} ({{ $dicts->translate('BMI', $personData->bmi()) }})</dd>
-                        <dt>cmp</dt><dd>{{ $personData->cmp() }}</dd>
-                        <dt>ppm</dt><dd>{{ $personData->ppm() }}</dd>
-                        <dt>pal</dt><dd>{{ $personData->pal }} ({{ $dicts->translate('PAL', $personData->pal) }})</dd>
-                        <dt>sex</dt><dd>{{ $dicts->translate('SEX', $user->sex) }}</dd>
+                        <dt>sex</dt><dd>{{ $dict->translate('SEX', $user->sex) }}</dd>
+                        @if($user->latestMeasurement)
+                            <dt>weight</dt><dd>{{ number_format($user->latestMeasurement->weight, 2) }}</dd>
+                            <dt>height</dt><dd>{{ number_format($user->latestMeasurement->height, 2) }}</dd>
+                            <dt>bmi</dt><dd>{{ number_format($user->bmi, 1) }} ({{ $dict->translate('BMI', $user->bmi) }})</dd>
+                            <dt>cmp</dt><dd>{{ number_format($user->cmp, 2, ',', ' ') }}</dd>
+                            <dt>ppm</dt><dd>{{ number_format($user->ppm, 2, ',', ' ') }}</dd>
+                            <dt>pal</dt><dd>{{ $user->pal }} ({{ $dict->translate('PAL', $user->pal) }})</dd>
+                        @else
+                            <dt>Add some measurements to see your stats</dt>
+                        @endif
                     </dl>
                 </div>
             </div>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('dict', 'App\Services\DictsService')
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -14,27 +16,33 @@
                             {{ csrf_field() }}
                             {{ method_field('put') }}
                             <div class="form-group{{ $errors->has('pal') ? ' has-error' : '' }}">
-                                <label>PAL</label>
+                                <label for="pal">PAL</label>
                                 <div class="">
-                                    <input type="text" name="pal" class="form-control" value="{{ old('pal', $measurement->pal) }}"/>
+                                    <select id="pal" name="pal" class="form-control">
+                                        @foreach($dict->getDict('PAL') as $key => $value)
+                                            <option value="{{ $key }}" {{ old('pal', $measurement->pal) === $key ? 'selected' : '' }}>
+                                                {{ $value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @if ($errors->has('pal'))
                                         <span class="help-block"><strong>{{ $errors->first('pal') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
-                                <label>Height</label>
+                                <label for="height">Height [cm]</label>
                                 <div class="">
-                                    <input type="text" name="height" class="form-control" value="{{ old('height', $measurement->height) }}"/>
+                                    <input id="height" type="text" name="height" class="form-control" value="{{ old('height', $measurement->height) }}"/>
                                     @if ($errors->has('height'))
                                         <span class="help-block"><strong>{{ $errors->first('height') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('weight') ? ' has-error' : '' }}">
-                                <label>Weight</label>
+                                <label for="weight">Weight [kg]</label>
                                 <div class="">
-                                    <input type="text" name="weight" class="form-control" value="{{ old('weight', $measurement->weight) }}"/>
+                                    <input id="weight" type="text" name="weight" class="form-control" value="{{ old('weight', $measurement->weight) }}"/>
                                     @if ($errors->has('weight'))
                                         <span class="help-block"><strong>{{ $errors->first('weight') }}</strong></span>
                                     @endif

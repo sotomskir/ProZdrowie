@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DictsService;
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 class HomeController extends Controller
 {
 
-    protected $dicts;
-
     /**
      * Create a new controller instance.
-     *
-     * @param DictsService $dicts
      */
-    public function __construct(DictsService $dicts)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->dicts = $dicts;
     }
 
     /**
@@ -34,8 +24,7 @@ class HomeController extends Controller
         $personData = $user->measurements()->get()->last();
         return view('home', [
             'user' => $user,
-            'personData' => $personData,
-            'dicts' => $this->dicts
+            'personData' => $personData
         ]);
     }
 }

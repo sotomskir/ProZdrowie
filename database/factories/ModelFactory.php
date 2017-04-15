@@ -26,7 +26,8 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'email' => $firstName.$lastName.'@psat.pl',
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
-        'sex' => $faker->randomElement([1, 0])
+        'sex' => $faker->randomElement([1, 0]),
+        'publication_agreement' => $faker->boolean(70)
     ];
 });
 
@@ -36,6 +37,6 @@ $factory->define(Measurement::class, function (Faker\Generator $faker) {
 //        'age' => $faker->randomNumber(2),
         'pal' => $faker->randomElement([1.2, 1.3, 1.4, 1.5, 1.6]),
         'weight' => $faker->randomFloat(3, 50, 150),
-        'height' => $faker->randomFloat(3, 1.20, 2.50),
+        'height' => $faker->randomFloat(3, 150, 200),
     ];
 });

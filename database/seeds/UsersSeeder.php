@@ -13,8 +13,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 5)->create()->each(function (User $user) {
-            $user->measurements()->saveMany(factory(Measurement::class, 5)->make());
+
+        factory(User::class)->make(['email' => 'user@example.com'])->save();
+        factory(User::class, 50)->create()->each(function (User $user) {
+            $user->measurements()->saveMany(factory(Measurement::class, 10)->make());
         });
     }
 }

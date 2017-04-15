@@ -43,8 +43,8 @@
 
                             <div class="col-md-6">
                                 <select id="sex" name="sex" class="form-control">
-                                    <option value="1" {{ old('sex') === 1 ? selected : '' }}>Male</option>
-                                    <option value="0" {{ old('sex') === 0 ? selected : '' }}>Female</option>
+                                    <option value="1" {{ old('sex') === 1 ? 'selected' : '' }}>Male</option>
+                                    <option value="0" {{ old('sex') === 0 ? 'selected' : '' }}>Female</option>
                                 </select>
                             </div>
                         </div>
@@ -60,6 +60,14 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('publication_agreement') ? ' has-error' : '' }}">
+                            <label for="publication_agreement" class="col-md-4 control-label">I agree to publish my personal data</label>
+
+                            <div class="col-md-6">
+                                <input id="publication_agreement" type="checkbox" class="form-control" name="publication_agreement">
                             </div>
                         </div>
 
