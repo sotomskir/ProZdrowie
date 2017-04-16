@@ -90,4 +90,13 @@ class User extends Authenticatable
         return $this->ppm * $this->pal;
     }
 
+    public function getWeightDiffAttribute()
+    {
+        if (!$this->latestMeasurement) {
+            return 0;
+        }
+
+        return $this->weight - $this->measurements->first()->weight;
+    }
+
 }

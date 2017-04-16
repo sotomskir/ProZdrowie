@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Carbon\Carbon::setLocale('pl');
     }
 
     /**
@@ -26,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+
+        $this->app->bind(
+            'App\Repositories\Contracts\DictionaryRepository',
+            'App\Repositories\DatabaseDictionaryRepository'
+        );
     }
 }

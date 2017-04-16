@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@inject('dict', 'App\Services\DictsService')
+@inject('dict', 'App\Services\DictionaryService')
 
 @section('content')
     <div class="container">
@@ -19,7 +19,7 @@
                                 <label for="pal">PAL</label>
                                 <div class="">
                                     <select id="pal" name="pal" class="form-control">
-                                        @foreach($dict as $key => $value)
+                                        @foreach($dict->getDictionaryByName('PAL') as $key => $value)
                                             <option value="{{ $key }}" {{ old('pal') === $key ? 'selected' : '' }}>
                                                 {{ $value }}
                                             </option>
