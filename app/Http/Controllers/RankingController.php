@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Presenters\UsersPresenter;
+use App\Repositories\UsersRepository;
+use Illuminate\Http\Request;
 
 class RankingController extends Controller
 {
@@ -20,7 +23,7 @@ class RankingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersRepository $usersRepository, Request $request)
     {
 //        $sql = 'SELECT *
 //                FROM users u
@@ -29,7 +32,10 @@ class RankingController extends Controller
 //                ORDER BY u.id;';
 //        $users = \DB::select($sql);
 //        $users = User::where('publication_agreement', true)->get(); // N+1 Issue
-        $users = User::where('publication_agreement', true)->with('latestMeasurement')->orderBy('last_name')->get();
-        return view('ranking.index', ['users' => $users]);
+//        $users = User::where('publication_agreement', true)->with('latestMeasurement')->orderBy('last_name')->get();
+        return view('ranking.index', [
+            'users' => $usersRepository->getUsersRankingByWeightLoss(),
+            'logged' => $request->user()
+        ]);
     }
 }

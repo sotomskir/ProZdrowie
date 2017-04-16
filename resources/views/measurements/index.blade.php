@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@inject('dicts', 'App\Services\DictsService')
+@inject('dict', 'App\Services\DictionaryService')
 
 @section('content')
     <div class="container">
