@@ -8,7 +8,7 @@ class Measurement extends Model
 {
 
     protected $fillable = [
-        'height', 'weight', 'pal',
+        'height', 'weight', 'waist', 'biceps', 'hips', 'thigh', 'chest'
     ];
 
     public function user()

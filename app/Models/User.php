@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Dictionaries\Sex;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'sex', 'email', 'password',
+        'first_name', 'last_name', 'sex', 'email', 'password', 'pal',
     ];
 
     /**
@@ -42,61 +43,157 @@ class User extends Authenticatable
 
     public function getBmiAttribute()
     {
-        if (!$this->latestMeasurement) {
-            return 0;
-        }
+        if ($this->hasNoMeasurements()) return 0;
 
-        return $this->latestMeasurement['weight'] / (pow(($this->latestMeasurement['height'] / 100), 2));
+        return $this->weight / (pow(($this->height / 100), 2));
     }
 
     public function getWeightAttribute()
     {
-        if (!$this->latestMeasurement) {
-            return 0;
-        }
+        if ($this->hasNoMeasurements()) return 0;
 
         return $this->latestMeasurement['weight'];
     }
 
     public function getHeightAttribute()
     {
-        if (!$this->latestMeasurement) {
-            return 0;
-        }
+        if ($this->hasNoMeasurements()) return 0;
 
         return $this->latestMeasurement['height'];
     }
 
-    public function getPalAttribute()
+    public function getWaistAttribute()
     {
-        if (!$this->latestMeasurement) {
-            return 0;
-        }
+        if ($this->hasNoMeasurements()) return 0;
 
-        return $this->latestMeasurement['pal'];
+        return $this->latestMeasurement['waist'];
+    }
+
+    public function getHipsAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->latestMeasurement['hips'];
+    }
+
+    public function getBicepsAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->latestMeasurement['biceps'];
+    }
+
+    public function getThighAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->latestMeasurement['thigh'];
+    }
+
+    public function getChestAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->latestMeasurement['chest'];
     }
 
     public function getPpmAttribute()
     {
-        if($this->sex == 1) {
+        if ($this->hasNoMeasurements()) return 0;
+
+        if($this->isMale()) {
             return 66.5 + (13.75 * $this->weight) + (5.003 * $this->height) - (6.77 * $this->age);
         }
 
         return 655.1 + (9.563 * $this->weight) + (1.85 * $this->height) - (4.676 * $this->age);
     }
 
+    public function getWhrAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->waist / $this->hips;
+    }
+
     public function getCmpAttribute()
     {
+        if ($this->hasNoMeasurements()) return 0;
+
         return $this->ppm * $this->pal;
     }
 
     public function getWeightDiffAttribute()
     {
-        if (!$this->latestMeasurement) {
-            return 0;
-        }
+        if ($this->hasNoMeasurements()) return 0;
 
         return $this->weight - $this->measurements->first()->weight;
+    }
+
+    public function getHeightDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->height - $this->measurements->first()->height;
+    }
+
+    public function getWaistDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->waist - $this->measurements->first()->waist;
+    }
+
+    public function getChestDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->chest - $this->measurements->first()->chest;
+    }
+
+    public function getBicepsDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->biceps - $this->measurements->first()->biceps;
+    }
+
+    public function getHipsDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->hips - $this->measurements->first()->hips;
+    }
+
+    public function getThighDiffAttribute()
+    {
+        if ($this->hasNoMeasurements()) return 0;
+
+        return $this->thigh - $this->measurements->first()->thigh;
+    }
+
+    public function isFemale(): bool
+    {
+        return $this->sex === Sex::FEMALE;
+    }
+
+    public function isMale(): bool
+    {
+        return $this->sex === Sex::MALE;
+    }
+
+    public function hasAbdominalObesity(): bool
+    {
+        return $this->whr >= ($this->isMale() ? 1.0 : 0.85) || $this->waist > ($this->isMale() ? 102 : 88);
+    }
+
+    public function hasObesity()
+    {
+        return $this->bmi > 30;
+    }
+
+    private function hasNoMeasurements(): bool
+    {
+        return !$this->latestMeasurement;
     }
 
 }

@@ -16,18 +16,26 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>pal</th>
                                     <th>weight [kg]</th>
                                     <th>height [cm]</th>
+                                    <th>waist [cm]</th>
+                                    <th>biceps [cm]</th>
+                                    <th>hips [cm]</th>
+                                    <th>thigh [cm]</th>
+                                    <th>chest [cm]</th>
                                     <th>actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($measurements as $measurement)
                                 <tr>
-                                    <td>{{ $dict->translate('PAL', $measurement->pal) }}</td>
                                     <td>{{ $measurement->weight }}</td>
                                     <td>{{ $measurement->height }}</td>
+                                    <td>{{ $measurement->waist }}</td>
+                                    <td>{{ $measurement->biceps }}</td>
+                                    <td>{{ $measurement->hips }}</td>
+                                    <td>{{ $measurement->thigh }}</td>
+                                    <td>{{ $measurement->chest }}</td>
                                     <td>
                                         <form action="/measurements/{{ $measurement->id }}" method="post">
                                             {{ csrf_field() }}

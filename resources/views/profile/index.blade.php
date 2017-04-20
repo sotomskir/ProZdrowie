@@ -9,7 +9,7 @@
                 <p>
                     {{ $user->sex() . ', ' . $user->age() }}<br>
                     {{ $user->weight() }}<br>
-                    {!! $user->weightBallance() !!}
+                    {!! $user->weightBalance() !!}
                 </p>
                 <h3 class="tagline">{!! $user->getMembershipTime()  !!}</h3>
             </div><!--//profile-container-->
@@ -48,6 +48,21 @@
         <div class="main-wrapper">
 
             <section class="section summary-section">
+                <h2 class="section-title"><i class="fa fa-heart"></i>Twoje ostatnie pomiary:</h2>
+                <div class="summary">
+                    <ul>
+                        <li>Wzrost: {{ $user->height() }} ({!! $user->heightBalance() !!})</li>
+                        <li>Waga: {{ $user->weight() }} ({!! $user->weightBalance() !!})</li>
+                        <li>Klatka piersiowa: {{ $user->chest() }} ({!! $user->chestBalance() !!})</li>
+                        <li>Talia: {{ $user->waist() }} ({!! $user->waistBalance() !!})</li>
+                        <li>Biodra: {{ $user->hips() }} ({!! $user->hipsBalance() !!})</li>
+                        <li>Biceps: {{ $user->biceps() }} ({!! $user->bicepsBalance() !!})</li>
+                        <li>Udo: {{ $user->thigh() }} ({!! $user->thighBalance() !!})</li>
+                    </ul>
+                </div><!--//summary-->
+            </section><!--//section-->
+
+            <section class="section summary-section">
                 <h2 class="section-title"><i class="fa fa-heart"></i>BMI (Body Mass Index)</h2>
                 <div class="summary">
                     <p class="alert {{ $user->bmiAlert() }}">Twoje BMI według ostatniego pomiaru: <b>{{ $user->bmi() }}
@@ -66,8 +81,10 @@
             </section><!--//section-->
 
             <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                <h2 class="section-title"><i class="fa fa-user"></i>PPM</h2>
                 <div class="summary">
+                    <p class="alert {{ $user->ppmAlert() }}">Twoje PPM według ostatniego pomiaru: <b>{{ $user->ppm() }}</b></p>
+                    <p>
                     <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. You can <a
                                 href="http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/"
                                 target="_blank">download this free resume/CV template here</a>. Aenean commodo ligula
@@ -77,8 +94,10 @@
             </section><!--//section-->
 
             <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                <h2 class="section-title"><i class="fa fa-user"></i>CMP</h2>
                 <div class="summary">
+                    <p class="alert {{ $user->cmpAlert() }}">Twoje CMP według ostatniego pomiaru: <b>{{ $user->cmp() }}</b></p>
+                    <p>
                     <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. You can <a
                                 href="http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/"
                                 target="_blank">download this free resume/CV template here</a>. Aenean commodo ligula

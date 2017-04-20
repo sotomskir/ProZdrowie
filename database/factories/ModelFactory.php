@@ -24,6 +24,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'first_name' => $firstName,
         'last_name' => $lastName,
         'email' => $firstName.$lastName.'@psat.pl',
+        'pal' => $faker->randomElement([1.2, 1.3, 1.4, 1.5, 1.6]),
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
         'sex' => $faker->randomElement([1, 0]),
@@ -35,8 +36,12 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 $factory->define(Measurement::class, function (Faker\Generator $faker) {
     return [
 //        'age' => $faker->randomNumber(2),
-        'pal' => $faker->randomElement([1.2, 1.3, 1.4, 1.5, 1.6]),
         'weight' => $faker->randomFloat(3, 50, 150),
         'height' => $faker->randomFloat(3, 150, 200),
+        'waist'  => $faker->randomFloat(3,50, 150),
+        'biceps' => $faker->randomFloat(3,15, 50),
+        'hips'   => $faker->randomFloat(3,50, 150),
+        'thigh'  => $faker->randomFloat(3,20, 80),
+        'chest'  => $faker->randomFloat(3,50, 150),
     ];
 });

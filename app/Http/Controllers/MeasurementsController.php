@@ -22,9 +22,13 @@ class MeasurementsController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'pal' => 'required|numeric',
-            'height' => 'required|numeric',
-            'weight' => 'required|numeric',
+            'height' => 'required|numeric|min:100|max:250',
+            'weight' => 'required|numeric|min:30|max:200',
+            'waist' => 'required|numeric|min:30|max:200',
+            'biceps' => 'required|numeric|min:15|max:100',
+            'hips' => 'required|numeric|min:30|max:200',
+            'thigh' => 'required|numeric|min:20|max:100',
+            'chest' => 'required|numeric|min:30|max:200',
         ]);
     }
 

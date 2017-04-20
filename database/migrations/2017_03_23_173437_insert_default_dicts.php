@@ -96,6 +96,28 @@ class InsertDefaultDicts extends Migration
             'key' => 999,
             'value' => 'Duża otyłość'
         ]);
+
+        DB::table('dicts')->insert([
+//            'id' => 4,
+            'type' => 1,
+            'name' => 'OBESITY_TYPE',
+            'description' => '',
+        ]);
+        DB::table('dict_values')->insert([
+            'dict_id' => 4,
+            'key' => 0,
+            'value' => 'otyłość brzuszna'
+        ]);
+        DB::table('dict_values')->insert([
+            'dict_id' => 4,
+            'key' => 1,
+            'value' => 'otyłość typu pośladkowo-udowego'
+        ]);
+        DB::table('dict_values')->insert([
+            'dict_id' => 4,
+            'key' => 2,
+            'value' => 'brak otyłości'
+        ]);
     }
 
     /**

@@ -15,21 +15,6 @@
                         <form action="{{  url('/measurements/'.$measurement->id) }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('put') }}
-                            <div class="form-group{{ $errors->has('pal') ? ' has-error' : '' }}">
-                                <label for="pal">PAL</label>
-                                <div class="">
-                                    <select id="pal" name="pal" class="form-control">
-                                        @foreach($dict->getDictionaryByName('PAL') as $key => $value)
-                                            <option value="{{ $key }}" {{ old('pal', $measurement->pal) === $key ? 'selected' : '' }}>
-                                                {{ $value }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('pal'))
-                                        <span class="help-block"><strong>{{ $errors->first('pal') }}</strong></span>
-                                    @endif
-                                </div>
-                            </div>
                             <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
                                 <label for="height">Height [cm]</label>
                                 <div class="">
@@ -45,6 +30,52 @@
                                     <input id="weight" type="text" name="weight" class="form-control" value="{{ old('weight', $measurement->weight) }}"/>
                                     @if ($errors->has('weight'))
                                         <span class="help-block"><strong>{{ $errors->first('weight') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('waist') ? ' has-error' : '' }}">
+                                <label for="waist">Waist [cm]</label>
+                                <div class="">
+                                    <input id="waist" type="text" name="waist" class="form-control" value="{{ old('waist', $measurement->waist) }}"/>
+                                    @if ($errors->has('waist'))
+                                        <span class="help-block"><strong>{{ $errors->first('waist') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('biceps') ? ' has-error' : '' }}">
+                                <label for="biceps">Biceps [cm]</label>
+                                <div class="">
+                                    <input id="biceps" type="text" name="biceps" class="form-control" value="{{ old('biceps', $measurement->biceps) }}"/>
+                                    @if ($errors->has('biceps'))
+                                        <span class="help-block"><strong>{{ $errors->first('biceps') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('hips') ? ' has-error' : '' }}">
+                                <label for="hips">hips [cm]</label>
+                                <div class="">
+                                    <input id="hips" type="text" name="hips" class="form-control" value="{{ old('hips', $measurement->hips) }}"/>
+                                    @if ($errors->has('hips'))
+                                        <span class="help-block"><strong>{{ $errors->first('hips') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('thigh') ? ' has-error' : '' }}">
+                                <label for="thigh">thigh [cm]</label>
+                                <div class="">
+                                    <input id="thigh" type="text" name="thigh" class="form-control" value="{{ old('thigh', $measurement->thigh) }}"/>
+                                    @if ($errors->has('thigh'))
+                                        <span class="help-block"><strong>{{ $errors->first('thigh') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('chest') ? ' has-error' : '' }}">
+                                <label for="chest">chest [cm]</label>
+                                <div class="">
+                                    <input id="chest" type="text" name="chest" class="form-control" value="{{ old('chest', $measurement->chest) }}"/>
+                                    @if ($errors->has('chest'))
+                                        <span class="help-block"><strong>{{ $errors->first('chest') }}</strong></span>
                                     @endif
                                 </div>
                             </div>

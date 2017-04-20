@@ -18,6 +18,6 @@ class UsersRepository
     public function getUsersRankingByWeightLoss()
     {
         $users = $this->usersGateway->with('measurements')->get();
-        return $users->sortBy('weightDiff');
+        return $users->sortBy('weightDiff', SORT_REGULAR, true);
     }
 }
