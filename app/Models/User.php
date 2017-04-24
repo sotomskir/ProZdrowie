@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Dictionaries\Sex;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -38,6 +37,13 @@ class User extends Authenticatable
 
     public function latestMeasurement()
     {
+//        if ($this->relationLoaded('measurements')) {
+//            return end($this->relations['measurements']);
+//        }
+//        if ($this->relationLoaded('latestMeasurement')) {
+//            return $this->relations['latestMeasurement'];
+//        }
+
         return $this->hasOne(Measurement::class)->orderBy('id', 'desc');
     }
 

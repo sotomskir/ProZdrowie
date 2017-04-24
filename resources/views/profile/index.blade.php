@@ -15,6 +15,7 @@
             </div><!--//profile-container-->
 
             <div class="contact-container container-block">
+                {{ $user->measurmentsHistory() }}
                 <ul class="list-unstyled contact-list">
                     <li class="email">
                         <i class="fa fa-envelope"></i>

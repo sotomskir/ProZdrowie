@@ -1,6 +1,7 @@
 <?php
 
 Auth::routes();
+\Debugbar::enable();
 
 /**
  * Tworzę grupę routingu -wszystkie ustawienia zdefiniowane w grupie

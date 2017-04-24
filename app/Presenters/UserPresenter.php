@@ -1,6 +1,5 @@
 <?php namespace App\Presenters;
 
-use App\Dictionaries\ObesityType;
 use App\Models\User;
 use App\Services\DictionaryService;
 
@@ -70,36 +69,6 @@ class UserPresenter
     public function bmiAlert()
     {
         return $this->bmi() > 25 ? 'alert-danger' : 'alert-info';
-    }
-
-    public function ppm()
-    {
-        return number_format($this->person->ppm, 0);
-    }
-
-    public function ppmDescription()
-    {
-        return $this->dict->translate('PPM', $this->ppm());
-    }
-
-    public function ppmAlert()
-    {
-        return $this->ppm() > 25 ? 'alert-danger' : 'alert-info';
-    }
-
-    public function cmp()
-    {
-        return number_format($this->person->cmp, 0);
-    }
-
-    public function cmpDescription()
-    {
-        return $this->dict->translate('CMP', $this->cmp());
-    }
-
-    public function cmpAlert()
-    {
-        return $this->cmp() > 25 ? 'alert-danger' : 'alert-info';
     }
 
     public function sex()
