@@ -16,4 +16,8 @@ class Measurement extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getUserIdAttribute($user_id)
+    {
+        return (int) $user_id;
+    }
 }

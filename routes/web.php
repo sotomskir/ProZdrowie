@@ -1,6 +1,7 @@
 <?php
 
 Auth::routes();
+\Debugbar::enable();
 
 /**
  * Tworzę grupę routingu -wszystkie ustawienia zdefiniowane w grupie
@@ -23,16 +24,12 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'RankingController@index',
         'as' => 'ranking'
     ]);
+    /**
+     * Cała logika routes dla pomiarów ma znamiona RESTfull, a w laravel nazwane resource:
+     * https://laravel.com/docs/5.4/controllers#resource-controllers
+     */
+    Route::resource('measurements', 'MeasurementsController');
 });
 
 //Route::get('/persons/{username}', 'PersonController@show');
 //Route::get('/ranking', 'RankingController@index');
-
-Route::group(['prefix' => 'measurements'], function () {
-    Route::get('', 'MeasurementsController@index')->name('measurement.index');
-    Route::post('', 'MeasurementsController@save');
-    Route::get('create', 'MeasurementsController@create');
-    Route::get('{measurement}', 'MeasurementsController@edit');
-    Route::put('{measurement}', 'MeasurementsController@update');
-    Route::delete('{measurement}', 'MeasurementsController@delete');
-});

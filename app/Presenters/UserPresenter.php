@@ -69,7 +69,12 @@ class UserPresenter
 
     public function bmiAlert()
     {
-        return $this->bmi() > 25 ? 'alert-danger' : 'alert-info';
+        return $this->bmi() > 25 ? 'alert-danger' : 'alert-success';
+    }
+
+    public function whrAlert()
+    {
+        return $this->person->hasObesity() ? 'alert-danger' : 'alert-success';
     }
 
     public function ppm()
@@ -215,5 +220,20 @@ class UserPresenter
         $arrow = 'fa fa-angle-' . (abs($diff) > 10 ? 'double-' : '') . ($diff > 0 ? 'up' : 'down');
         $sign = $diff > 0 ? '+' : '';
         return "$sign$diff $unit <i class=\"$arrow\"></i>";
+    }
+
+    public function isProfileCompleted()
+    {
+        return !$this->person->hasNoMeasurements();
+    }
+
+    public function whr()
+    {
+        return $this->person->whr;
+    }
+
+    public function hasMultipleMeasurements()
+    {
+        return $this->person->measurements->count() > 1;
     }
 }
