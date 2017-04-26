@@ -1,5 +1,6 @@
 <?php namespace App\Presenters;
 
+use App\Dictionaries\ObesityType;
 use App\Models\User;
 use App\Services\DictionaryService;
 
@@ -68,7 +69,42 @@ class UserPresenter
 
     public function bmiAlert()
     {
-        return $this->bmi() > 25 ? 'alert-danger' : 'alert-info';
+        return $this->bmi() > 25 ? 'alert-danger' : 'alert-success';
+    }
+
+    public function whrAlert()
+    {
+        return $this->person->hasObesity() ? 'alert-danger' : 'alert-success';
+    }
+
+    public function ppm()
+    {
+        return number_format($this->person->ppm, 0);
+    }
+
+    public function ppmDescription()
+    {
+        return $this->dict->translate('PPM', $this->ppm());
+    }
+
+    public function ppmAlert()
+    {
+        return $this->ppm() > 25 ? 'alert-danger' : 'alert-info';
+    }
+
+    public function cmp()
+    {
+        return number_format($this->person->cmp, 0);
+    }
+
+    public function cmpDescription()
+    {
+        return $this->dict->translate('CMP', $this->cmp());
+    }
+
+    public function cmpAlert()
+    {
+        return $this->cmp() > 25 ? 'alert-danger' : 'alert-info';
     }
 
     public function sex()
@@ -184,5 +220,20 @@ class UserPresenter
         $arrow = 'fa fa-angle-' . (abs($diff) > 10 ? 'double-' : '') . ($diff > 0 ? 'up' : 'down');
         $sign = $diff > 0 ? '+' : '';
         return "$sign$diff $unit <i class=\"$arrow\"></i>";
+    }
+
+    public function isProfileCompleted()
+    {
+        return !$this->person->hasNoMeasurements();
+    }
+
+    public function whr()
+    {
+        return $this->person->whr;
+    }
+
+    public function hasMultipleMeasurements()
+    {
+        return $this->person->measurements->count() > 1;
     }
 }

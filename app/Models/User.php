@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Dictionaries\Sex;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -37,12 +38,15 @@ class User extends Authenticatable
 
     public function latestMeasurement()
     {
-//        if ($this->relationLoaded('measurements')) {
-//            return end($this->relations['measurements']);
-//        }
-//        if ($this->relationLoaded('latestMeasurement')) {
-//            return $this->relations['latestMeasurement'];
-//        }
+        /**
+         * Gdyby tak się kiedyś stało, że pytając o "relację dynamiczną" ostatnich pomiarów.
+         * Mamy do dyspozycji wszystkie pomiary usera, to zwróćmy ostaatni rekord z pomiarów,
+         * bo sukcesywnie to ten sam rekord o jaki nam chodzi, teraz może nie ma sensu, ale
+         * dobrze wiedzieć, że można tu dać jakaś logikę :)
+         */
+        if ($this->relationLoaded('measurements')) {
+            return end($this->relations['measurements']);
+        }
 
         return $this->hasOne(Measurement::class)->orderBy('id', 'desc');
     }
@@ -197,7 +201,10 @@ class User extends Authenticatable
         return $this->bmi > 30;
     }
 
-    private function hasNoMeasurements(): bool
+    /**
+     * Daję access public, żeby można było wołać z presentera.
+     */
+    public function hasNoMeasurements(): bool
     {
         return !$this->latestMeasurement;
     }
