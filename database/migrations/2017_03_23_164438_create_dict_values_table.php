@@ -15,7 +15,7 @@ class CreateDictValuesTable extends Migration
     {
         Schema::create('dict_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('dict_id');
+            $table->integer('dict_id')->unsigned();
             $table->float('key');
             $table->string('value');
             $table->timestamps();
