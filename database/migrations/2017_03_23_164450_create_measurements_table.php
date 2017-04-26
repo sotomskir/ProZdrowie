@@ -15,7 +15,7 @@ class CreateMeasurementsTable extends Migration
     {
         Schema::create('measurements', function (Blueprint $table) {
               $table->increments('id');
-              $table->integer('user_id');
+              $table->integer('user_id')->unsigned();
               $table->float('pal');
               $table->float('weight');
               $table->float('height');
