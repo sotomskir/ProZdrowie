@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('dict', 'App\Services\DictionaryService')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -33,6 +35,23 @@
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('pal') ? ' has-error' : '' }}">
+                            <label for="pal" class="col-md-4 control-label">Poziom aktywności fizycznej</label>
+
+                            <div class="col-md-6">
+                                <select id="pal" class="form-control" name="pal" required autofocus>
+                                    @foreach($dict->getDictionaryByName('PAL') as $key => $value)
+                                        <option value="{{ $key }}" {{ old('pal') === $value ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('pal'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pal') }}</strong>
                                     </span>
                                 @endif
                             </div>
