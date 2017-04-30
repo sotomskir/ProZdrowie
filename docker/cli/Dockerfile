@@ -5,16 +5,20 @@ RUN apt-get update && apt-get install -y \
   apt-transport-https \
   curl \
   software-properties-common
-RUN set -o pipefail && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN add-apt-repository ppa:ondrej/php
-RUN set -o pipefail && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y \
   libpq-dev \
   npm \
   php7.1 \
+  php7.1-curl \
+  php7.1-dom \
   php7.1-pgsql \
+  php7.1-mbstring \
   php7.1-mysql \
   php7.1-sqlite3 \
+  php7.1-xml \
   vim \
   yarn
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
