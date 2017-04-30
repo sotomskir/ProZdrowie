@@ -1,14 +1,35 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# ProZdrowie
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Docker
+#### Dostępne kontenery:
+- postgres - localhost:5432 lub z innych kontenerów: postgres:5432
+- mysql - localhost:3306 lub z innych kontenerów: mysql:3306
+- mailhog - http://localhost:8025 przydatny np. do resetowania hasła
+- nginx - http://localhost:8080
+- cli - `docker-compose run cli`
 
+w mysql i postgres jest utworzona pusta baza danych "psat", użytkownik: "psat", hasło: "psat".
+Przykładowa konfiguracja znajduje się w pliku `.env.example`
+
+#### Workflow
+1. Uruchamiamy kontenery: `docker-compose up -d`
+2. Uruchamiamy cli: `docker-compose run cli`
+3. Wszystkie komendy np. `composer install`, `php artisan migrate` uruchamiamy w cli. Dostępny jest też npm i yarn. Gdyby czegoś brakowało to można dodać w `/docker/cli/Dockerfile`
+4. Aplikacja jest dostępna pod adresem http://localhost:8080 (jest uruchomiona na serwerze nginx)
+
+Można też używać kontenerów pojendynczo np. samego postgresa lub mysql, a serwer php uruchomić na swojej maszynie. 
+W takim wypadku trzeba dodać poniższe wpisy do swojego pliku /etc/hosts lub C:\Windows\System32\drivers\etc
+```
+127.0.0.1   postgres
+127.0.0.1   mysql
+127.0.0.1   mailhog
+```
+lub zmienić konfigurację w pliku .env
+```
+MAIL_HOST=localhost
+DB_HOST=localhost
+```
 ## About Laravel
-
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
@@ -26,15 +47,3 @@ Laravel is accessible, yet powerful, providing tools needed for large, robust ap
 Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
 
 If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

@@ -1,0 +1,53 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:9-alpine
+    ports:
+     - 5432:5432
+    environment:
+      POSTGRES_USER: psat
+      POSTGRES_PASSWORD: psat
+      POSTGRES_DB: psat
+  mysql:
+    image: mariadb:10
+    ports:
+     - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: psat
+      MYSQL_USER: psat
+      MYSQL_PASSWORD: psat
+      MYSQL_DATABASE: psat
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+     - 1025:1025
+     - 8025:8025
+  nginx:
+    image: nginx:latest
+    links:
+     - php
+    volumes:
+     - .:/code
+     - ./nginx.conf:/etc/nginx/conf.d/site.conf
+    ports:
+     - 8080:8080
+    depends_on:
+     - php
+  php:
+    build: ./docker/php-fpm
+    links:
+     - postgres
+     - mysql
+    ports:
+     - 9000:9000
+    volumes:
+     - ./:/code
+  cli:
+    build: ./docker/cli
+    links:
+     - postgres
+     - mysql
+    volumes:
+     - ./:/code
+    working_dir: /code
+    hostname: cli
