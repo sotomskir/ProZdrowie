@@ -5,7 +5,7 @@
 - postgres - localhost:5432 lub z innych kontenerów: postgres:5432
 - mysql - localhost:3306 lub z innych kontenerów: mysql:3306
 - mailhog - http://localhost:8025 przydatny np. do resetowania hasła
-- nginx - http://localhost:8080
+- nginx - http://localhost:8000
 - cli - `docker-compose run cli`
 
 w mysql i postgres jest utworzona pusta baza danych "psat", użytkownik: "psat", hasło: "psat".
@@ -15,7 +15,7 @@ Przykładowa konfiguracja znajduje się w pliku `.env.example`
 1. Uruchamiamy kontenery: `docker-compose up -d`
 2. Uruchamiamy cli: `docker-compose run cli`
 3. Wszystkie komendy np. `composer install`, `php artisan migrate` uruchamiamy w cli. Dostępny jest też npm i yarn. Gdyby czegoś brakowało to można dodać w `/docker/cli/Dockerfile`
-4. Aplikacja jest dostępna pod adresem http://localhost:8080 (jest uruchomiona na serwerze nginx)
+4. Aplikacja jest dostępna pod adresem http://localhost:8000 (jest uruchomiona na serwerze nginx)
 
 Można też używać kontenerów pojendynczo np. samego postgresa lub mysql, a serwer php uruchomić na swojej maszynie. 
 W takim wypadku trzeba dodać poniższe wpisy do swojego pliku /etc/hosts lub C:\Windows\System32\drivers\etc
@@ -24,11 +24,9 @@ W takim wypadku trzeba dodać poniższe wpisy do swojego pliku /etc/hosts lub C:
 127.0.0.1   mysql
 127.0.0.1   mailhog
 ```
-lub zmienić konfigurację w pliku .env
-```
-MAIL_HOST=localhost
-DB_HOST=localhost
-```
+Uruchomienie pojenynczego kontenera: `docker-compose up -d postgres`
+
+Zatrzymanie kontenerów: `docker-compose stop`
 ## About Laravel
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 

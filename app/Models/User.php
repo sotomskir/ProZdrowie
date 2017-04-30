@@ -55,7 +55,7 @@ class User extends Authenticatable
     {
         if ($this->hasNoMeasurements()) return 0;
 
-        return $this->weight / (pow(($this->height / 100), 2));
+        return $this->bmi($this->height, $this->weight);
     }
 
     public function getWeightAttribute()
@@ -111,25 +111,21 @@ class User extends Authenticatable
     {
         if ($this->hasNoMeasurements()) return 0;
 
-        if($this->isMale()) {
-            return 66.5 + (13.75 * $this->weight) + (5.003 * $this->height) - (6.77 * $this->age);
-        }
-
-        return 655.1 + (9.563 * $this->weight) + (1.85 * $this->height) - (4.676 * $this->age);
+        return $this->ppm($this->height, $this->weight, $this->age, $this->isMale());
     }
 
     public function getWhrAttribute()
     {
         if ($this->hasNoMeasurements()) return 0;
 
-        return $this->waist / $this->hips;
+        return $this->whr($this->waist, $this->hips);
     }
 
     public function getCmpAttribute()
     {
         if ($this->hasNoMeasurements()) return 0;
 
-        return $this->ppm * $this->pal;
+        return $this->cmp($this->ppm, $this->pal);
     }
 
     public function getWeightDiffAttribute()
@@ -207,6 +203,40 @@ class User extends Authenticatable
     public function hasNoMeasurements(): bool
     {
         return !$this->latestMeasurement;
+    }
+
+    public function bmi($height, $weight)
+    {
+        return $weight / (pow(($height / 100), 2));
+    }
+
+    public function ppm($height, $weight, $age, $isMale)
+    {
+        if($isMale) {
+            return 66.5 + (13.75 * $weight) + (5.003 * $height) - (6.77 * $age);
+        }
+
+        return 655.1 + (9.563 * $weight) + (1.85 * $height) - (4.676 * $age);
+    }
+
+    public function whr($waist, $hips)
+    {
+        return $waist / $hips;
+    }
+
+    public function cmp($ppm, $pal)
+    {
+        return $ppm * $pal;
+    }
+
+    public function getFirstNameAttribute()
+    {
+        return $this->first_name;
+    }
+
+    public function getLastNameAttribute()
+    {
+        return $this->last_name;
     }
 
 }

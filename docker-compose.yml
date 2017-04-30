@@ -30,7 +30,7 @@ services:
      - .:/code
      - ./nginx.conf:/etc/nginx/conf.d/site.conf
     ports:
-     - 8080:8080
+     - 8000:8000
     depends_on:
      - php
   php:

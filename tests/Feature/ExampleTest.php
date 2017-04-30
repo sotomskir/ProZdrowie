@@ -9,6 +9,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * A basic test example.
      *
@@ -18,6 +20,6 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }
